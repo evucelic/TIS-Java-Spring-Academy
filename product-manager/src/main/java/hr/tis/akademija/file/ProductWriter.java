@@ -36,6 +36,7 @@ public class ProductWriter {
                 );
                 writer.write(string + "\n");
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
