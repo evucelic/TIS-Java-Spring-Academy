@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +16,14 @@ import static hr.tis.akademija.file.FileSystemConfiguration.PRODUCTS_FILES_FOLDE
 
 public class ProductWriter {
 
-    public static void writeProducts(ProductsMetadata productsMetadata) throws IOException {
+    public static void writeProducts(ProductsMetadata productsMetadata){
         String fileName = String.format("%s_%s_%s.txt", productsMetadata.getId(),
                 productsMetadata.getDatumVrijemeKreiranja(), productsMetadata.getNaslov()).replace(":", "$");
         File theDir = new File(PRODUCTS_FILES_FOLDER_PATH.resolve(fileName).toAbsolutePath().getParent().toString());
-        if (!theDir.exists()){
+        if (!theDir.exists()) {
             theDir.mkdirs();
         }
+
         try (BufferedWriter writer = Files.newBufferedWriter(
                 PRODUCTS_FILES_FOLDER_PATH.resolve(fileName))) {
             // TODO pisanje proizvoda u datoteku
@@ -51,7 +50,7 @@ public class ProductWriter {
         return String.format("%" + n + "s", s);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         List<Product> lista = new ArrayList<>();
         Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
         Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
@@ -59,6 +58,8 @@ public class ProductWriter {
         lista.add(proizvod2);
         ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
 
+        File directory = FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.toFile();
+        System.out.println(directory.getAbsolutePath());
         writeProducts(productsMetadata);
 
     }

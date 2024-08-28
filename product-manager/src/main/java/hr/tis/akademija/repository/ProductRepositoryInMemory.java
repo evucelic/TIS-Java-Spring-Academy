@@ -79,7 +79,8 @@ public class ProductRepositoryInMemory implements ProductRepository {
         ProductRepositoryInMemory productRepositoryInMemory = new ProductRepositoryInMemory();
         productRepositoryInMemory.insertProducts(productsMetadata);
 
-        System.out.println(productRepositoryInMemory.fetchProductsMetadata(2L));
+
+        System.out.println(String.format("%s", productsMetadata.getDatumVrijemeKreiranja()).replace(":", "$"));
     }
 
 
