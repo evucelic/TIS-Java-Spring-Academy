@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductMetadata {
-    private long id;
+public class ProductsMetadata {
+    private Long id;
     private LocalDateTime datumVrijemeKreiranja;
     private String naslov;
     private List<Product> popisProizvoda;
 
-    public ProductMetadata(long id, LocalDateTime datumVrijemeKreiranja, String naslov, List<Product> popisProizvoda) {
+    public ProductsMetadata(Long id, LocalDateTime datumVrijemeKreiranja, String naslov, List<Product> popisProizvoda) {
         this.id = id;
         this.datumVrijemeKreiranja = datumVrijemeKreiranja;
         this.naslov = naslov;
@@ -66,7 +66,7 @@ public class ProductMetadata {
         Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
         lista.add(proizvod1);
         lista.add(proizvod2);
-        ProductMetadata productsMetadata = new ProductMetadata(1, LocalDateTime.now(), "productmetadata",lista);
+        ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
 
         System.out.println(productsMetadata);
     }
