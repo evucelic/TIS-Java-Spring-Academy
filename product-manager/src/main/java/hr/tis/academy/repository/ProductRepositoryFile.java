@@ -1,16 +1,14 @@
-package hr.tis.akademija.repository;
+package hr.tis.academy.repository;
 
-import hr.tis.akademija.file.FileSystemConfiguration;
-import hr.tis.akademija.file.ProductWriter;
-import hr.tis.akademija.model.ProductsMetadata;
+import hr.tis.academy.file.FileSystemConfiguration;
+import hr.tis.academy.model.ProductsMetadata;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.time.LocalDate;
 
-import static hr.tis.akademija.file.ProductReader.read;
-import static hr.tis.akademija.file.ProductWriter.writeProducts;
+import static hr.tis.academy.file.ProductReader.read;
+import static hr.tis.academy.file.ProductWriter.writeProducts;
 
 public class ProductRepositoryFile implements ProductRepository {
     File directory = FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.toFile();
@@ -25,9 +23,8 @@ public class ProductRepositoryFile implements ProductRepository {
     @Override
     public BigDecimal fetchSumOfPrices(LocalDate createdDate) {
         ProductsMetadata product = fetchProductsMetadata(createdDate);
-        BigDecimal bigDecimal = calculateSumOfPrices(product.getPopisProizvoda());
 
-        return bigDecimal;
+        return calculateSumOfPrices(product.getPopisProizvoda());
     }
 
     @Override

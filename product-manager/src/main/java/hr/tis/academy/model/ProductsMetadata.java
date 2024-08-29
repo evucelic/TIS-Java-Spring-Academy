@@ -1,4 +1,4 @@
-package hr.tis.akademija.model;
+package hr.tis.academy.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

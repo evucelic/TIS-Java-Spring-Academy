@@ -1,4 +1,4 @@
-package hr.tis.akademija.file;
+package hr.tis.academy.file;
 
 import java.nio.file.Path;
 

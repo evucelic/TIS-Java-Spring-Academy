@@ -1,7 +1,7 @@
-package hr.tis.akademija.file;
+package hr.tis.academy.file;
 
-import hr.tis.akademija.model.Product;
-import hr.tis.akademija.model.ProductsMetadata;
+import hr.tis.academy.model.Product;
+import hr.tis.academy.model.ProductsMetadata;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hr.tis.akademija.file.FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH;
+import static hr.tis.academy.file.FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH;
 
 public class ProductWriter {
 

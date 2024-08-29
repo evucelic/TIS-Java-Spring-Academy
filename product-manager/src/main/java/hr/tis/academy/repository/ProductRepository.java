@@ -1,7 +1,7 @@
-package hr.tis.akademija.repository;
+package hr.tis.academy.repository;
 
-import hr.tis.akademija.model.Product;
-import hr.tis.akademija.model.ProductsMetadata;
+import hr.tis.academy.model.Product;
+import hr.tis.academy.model.ProductsMetadata;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

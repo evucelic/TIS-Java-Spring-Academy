@@ -1,7 +1,7 @@
-package hr.tis.akademija.file;
+package hr.tis.academy.file;
 
-import hr.tis.akademija.model.Product;
-import hr.tis.akademija.model.ProductsMetadata;
+import hr.tis.academy.model.Product;
+import hr.tis.academy.model.ProductsMetadata;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class ProductReader {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         read("1_2024-08-28T14$33$02.129050_productmetadata.txt");
 
