@@ -52,12 +52,11 @@ public class ProductRepositoryInMemory implements ProductRepository {
 
     @Override
     public ProductsMetadata fetchProductsMetadata(Long id) {
-        Optional<ProductsMetadata> product = productsMetadataList.stream().filter(list -> list.getId().equals(id)).findFirst();
-        if (product.isEmpty()) {
-            throw new NoProductFoundException("Record doesn’t exist.");
+        try {
+            return productsMetadataList.get((int) (id - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new NoProductFoundException("Record doesnt exist.");
         }
-
-        return product.orElse(null);
     }
 
     @Override
