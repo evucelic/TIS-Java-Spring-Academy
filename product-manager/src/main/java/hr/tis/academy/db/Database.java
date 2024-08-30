@@ -42,4 +42,8 @@ public class Database {
         return DriverManager.getConnection(DB_URL, "sa", "");
     }
 
+    public static void main(String[] args) {
+        init();
+    }
+
 }
