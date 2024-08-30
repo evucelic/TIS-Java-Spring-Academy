@@ -1,8 +1,9 @@
 package hr.tis.academy.repository;
 
-import hr.tis.academy.repository.exception.NoProductFoundException;
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
+import hr.tis.academy.repository.exception.NoProductFoundException;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,12 +13,29 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class ProductRepositoryInMemory implements ProductRepository {
     private static final List<ProductsMetadata> productsMetadataList = new ArrayList<>();
 
+    public static void main(String[] args) {
+        List<Product> lista = new ArrayList<>();
+        Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
+        Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
+        lista.add(proizvod1);
+        lista.add(proizvod2);
+        ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata", lista);
+
+
+        ProductRepositoryInMemory productRepositoryInMemory = new ProductRepositoryInMemory();
+        productRepositoryInMemory.insertProducts(productsMetadata);
+
+
+        System.out.println(String.format("%s", productsMetadata.getDatumVrijemeKreiranja()).replace(":", "$"));
+    }
+
     @Override
     public Long insertProducts(ProductsMetadata productsMetadata) {
-        productsMetadata.setId(Long.valueOf(productsMetadataList.size()+1));
+        productsMetadata.setId((long) (productsMetadataList.size() + 1));
         productsMetadataList.add(productsMetadata);
         return productsMetadata.getId();
     }
@@ -62,22 +80,6 @@ public class ProductRepositoryInMemory implements ProductRepository {
     @Override
     public Integer fetchProductsMetadataCount() {
         return productsMetadataList.size();
-    }
-
-    public static void main(String[] args) {
-        List<Product> lista = new ArrayList<>();
-        Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
-        Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
-        lista.add(proizvod1);
-        lista.add(proizvod2);
-        ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
-
-
-        ProductRepositoryInMemory productRepositoryInMemory = new ProductRepositoryInMemory();
-        productRepositoryInMemory.insertProducts(productsMetadata);
-
-
-        System.out.println(String.format("%s", productsMetadata.getDatumVrijemeKreiranja()).replace(":", "$"));
     }
 
 
