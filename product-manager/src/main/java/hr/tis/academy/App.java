@@ -11,21 +11,28 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class App {
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext; // 1. nacin
+
+    private final ProductRepositoryInMemory productRepositoryInMemory;
 
     @Autowired
-    private ProductRepositoryInMemory productRepositoryInMemory;
+    public App(ProductRepositoryInMemory productRepositoryInMemory) {
+        this.productRepositoryInMemory = productRepositoryInMemory;
+    } // 2. nacin
 
-    @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+         this.productRepository = productRepository;
+    } // 3. nacin
+
+
 
 
     @Bean("myApplicationRunner")
