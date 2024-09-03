@@ -2,19 +2,31 @@ package hr.tis.academy.file;
 
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ProductReader {
 
-    public static ProductsMetadata read(String fileName) {
+    public final Path productsFilesFolderPath;
+
+    @Autowired
+    public ProductReader(@Qualifier("productsFilesFolderPath") Path productsFilesFolderPath) {
+        this.productsFilesFolderPath = productsFilesFolderPath;
+    }
+
+    public ProductsMetadata read(String fileName) {
         List<Product> products = new ArrayList<>();
         String parsedName = fileName.split("\\.txt")[0];
         String[] parsedNameList = parsedName.split("_");
@@ -25,7 +37,7 @@ public class ProductReader {
 
 
         try (BufferedReader reader = Files.newBufferedReader(
-                Paths.get(FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.resolve(fileName).toString()))) {
+                Paths.get(productsFilesFolderPath.resolve(fileName).toString()))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -44,12 +56,6 @@ public class ProductReader {
         }
 
         return new ProductsMetadata(id, localDateTime,naslov, products);
-
-    }
-
-    public static void main(String[] args) {
-
-        read("1_2024-08-28T14$33$02.129050_productmetadata.txt");
 
     }
 }

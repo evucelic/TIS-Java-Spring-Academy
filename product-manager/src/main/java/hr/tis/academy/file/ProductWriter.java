@@ -2,30 +2,40 @@ package hr.tis.academy.file;
 
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hr.tis.academy.file.FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH;
-
+@Component
 public class ProductWriter {
 
-    public static void writeProducts(ProductsMetadata productsMetadata){
+    public final Path productsFilesFolderPath;
+
+    @Autowired
+    public ProductWriter(@Qualifier("productsFilesFolderPath") Path productsFilesFolderPath) {
+        this.productsFilesFolderPath = productsFilesFolderPath;
+    }
+
+    public void writeProducts(ProductsMetadata productsMetadata){
         String fileName = String.format("%s_%s_%s.txt", productsMetadata.getId(),
                 productsMetadata.getDatumVrijemeKreiranja(), productsMetadata.getNaslov()).replace(":", "$");
-        File theDir = new File(PRODUCTS_FILES_FOLDER_PATH.resolve(fileName).toAbsolutePath().getParent().toString());
+        File theDir = new File(productsFilesFolderPath.resolve(fileName).toAbsolutePath().getParent().toString());
         if (!theDir.exists()) {
             theDir.mkdirs();
         }
 
         try (BufferedWriter writer = Files.newBufferedWriter(
-                PRODUCTS_FILES_FOLDER_PATH.resolve(fileName))) {
+                productsFilesFolderPath.resolve(fileName))) {
             // TODO pisanje proizvoda u datoteku
             for (Product product : productsMetadata.getPopisProizvoda()) {
                 String string = String.format("%s%s%s%d", padRight(product.getNaziv(), 100),
@@ -57,11 +67,6 @@ public class ProductWriter {
         lista.add(proizvod1);
         lista.add(proizvod2);
         ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
-
-        File directory = FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.toFile();
-        System.out.println(directory.getAbsolutePath());
-        writeProducts(productsMetadata);
-
     }
 
 }

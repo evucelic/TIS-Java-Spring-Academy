@@ -3,6 +3,7 @@ package hr.tis.academy.repository;
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.exception.NoProductFoundException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -13,7 +14,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Component("myProductRepositoryInMemory")
+@Profile("inMemory")
 public class ProductRepositoryInMemory implements ProductRepository {
     private static final List<ProductsMetadata> productsMetadataList = new ArrayList<>();
 

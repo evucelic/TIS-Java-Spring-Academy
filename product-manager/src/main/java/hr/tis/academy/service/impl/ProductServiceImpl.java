@@ -1,18 +1,24 @@
-package hr.tis.academy.service.impl.ProductServiceImpl;
+package hr.tis.academy.service.impl;
 
-import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.ProductRepository;
 import hr.tis.academy.repository.ProductRepositoryDB;
 import hr.tis.academy.scraper.WebScraper;
 import hr.tis.academy.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
+@Service
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
-    private final WebScraper webScraper = new WebScraper ();
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private WebScraper webScraper;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
