@@ -17,14 +17,14 @@ import java.util.Arrays;
 public class App {
 
     @Autowired
-    private ApplicationContext applicationContext; // 1. nacin
+    private ApplicationContext applicationContext; // 1. nacin, ako applicationContext bean ne postoji bit ce null i normalno ce se pokrenuti, ne moze biti final
 
-    private final ProductRepositoryInMemory productRepositoryInMemory;
-
-    @Autowired
-    public App(ProductRepositoryInMemory productRepositoryInMemory) {
-        this.productRepositoryInMemory = productRepositoryInMemory;
-    } // 2. nacin
+//    private final ProductRepositoryInMemory productRepositoryInMemory;
+//
+//    @Autowired
+//    public App(ProductRepositoryInMemory productRepositoryInMemory) {
+//        this.productRepositoryInMemory = productRepositoryInMemory;
+//    }  2. nacin, ako ne postoji bacit ce error i nece se pokrenuti
 
     private ProductRepository productRepository;
     @Autowired
@@ -40,11 +40,11 @@ public class App {
         return args -> {
             Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
-            System.out.printf("Products " + "record count: {" + productRepositoryInMemory.fetchProductsMetadataCount() + "}%n");
+            System.out.printf("Products " + "record count: {" + productRepository.fetchProductsMetadataCount() + "}%n");
 
-            if (productRepository instanceof ProductRepositoryInMemory || productRepository instanceof ProductRepositoryFile || productRepository instanceof ProductRepositoryDB) {
-                System.out.println("instanca klase");
-            }
+//            if (productRepository instanceof ProductRepositoryInMemory || productRepository instanceof ProductRepositoryFile || productRepository instanceof ProductRepositoryDB) {
+//                System.out.println("instanca klase");
+//            }
 
             
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory

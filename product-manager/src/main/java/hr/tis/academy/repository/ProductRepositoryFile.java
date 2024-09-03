@@ -4,6 +4,8 @@ import hr.tis.academy.file.FileSystemConfiguration;
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.exception.NoProductFoundException;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -14,6 +16,8 @@ import java.util.*;
 import static hr.tis.academy.file.ProductReader.read;
 import static hr.tis.academy.file.ProductWriter.writeProducts;
 
+@Component
+@Profile("File")
 public class ProductRepositoryFile implements ProductRepository {
     File directory = FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.toFile();
 
