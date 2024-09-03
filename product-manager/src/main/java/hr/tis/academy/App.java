@@ -1,5 +1,7 @@
 package hr.tis.academy;
 
+import hr.tis.academy.repository.ProductRepository;
+import hr.tis.academy.repository.ProductRepositoryInMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,10 +17,15 @@ public class App {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Bean
+
+    @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
             Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
+
+            ProductRepositoryInMemory repository = (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
+
+            System.out.printf("Products " + "record count: {" + repository.fetchProductsMetadataCount() + "}%n");
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
         };
     }

@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Component("myProductRepositoryInMemory")
 public class ProductRepositoryInMemory implements ProductRepository {
     private static final List<ProductsMetadata> productsMetadataList = new ArrayList<>();
 
