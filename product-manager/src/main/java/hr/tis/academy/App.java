@@ -17,15 +17,16 @@ public class App {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private ProductRepositoryInMemory productRepositoryInMemory;
+
 
     @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
             Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
-            ProductRepositoryInMemory repository = (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
-
-            System.out.printf("Products " + "record count: {" + repository.fetchProductsMetadataCount() + "}%n");
+            System.out.printf("Products " + "record count: {" + productRepositoryInMemory.fetchProductsMetadataCount() + "}%n");
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
         };
     }
