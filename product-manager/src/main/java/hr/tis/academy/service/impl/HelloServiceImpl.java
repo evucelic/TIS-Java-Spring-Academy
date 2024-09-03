@@ -1,6 +1,7 @@
 package hr.tis.academy.service.impl;
 
 import hr.tis.academy.dto.DaysOfWeekResponse;
+import hr.tis.academy.dto.IsWeekendResponse;
 import hr.tis.academy.service.HelloService;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,10 @@ public class HelloServiceImpl implements HelloService {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public IsWeekendResponse isWeekend(DayOfWeek day) {
+        return new IsWeekendResponse(day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
     }
 }
