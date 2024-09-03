@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component("myProductRepositoryInMemory")
-@Profile("InMemory")
+@Profile("inMemory")
 public class ProductRepositoryInMemory implements ProductRepository {
     private static final List<ProductsMetadata> productsMetadataList = new ArrayList<>();
 

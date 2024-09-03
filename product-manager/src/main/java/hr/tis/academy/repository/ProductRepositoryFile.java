@@ -1,25 +1,39 @@
 package hr.tis.academy.repository;
 
-import hr.tis.academy.file.FileSystemConfiguration;
+import hr.tis.academy.file.ProductReader;
+import hr.tis.academy.file.ProductWriter;
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.exception.NoProductFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static hr.tis.academy.file.ProductReader.read;
-import static hr.tis.academy.file.ProductWriter.writeProducts;
 
 @Component
-@Profile("File")
+@Profile("file")
 public class ProductRepositoryFile implements ProductRepository {
-    File directory = FileSystemConfiguration.PRODUCTS_FILES_FOLDER_PATH.toFile();
+
+    public final Path productsFilesFolderPath;
+    private final ProductReader productReader;
+    private final ProductWriter productWriter;
+    @Autowired
+    public ProductRepositoryFile(@Qualifier("productsFilesFolderPath") Path productsFilesFolderPath, ProductReader productReader, ProductWriter productWriter) {
+        this.productsFilesFolderPath = productsFilesFolderPath;
+        this.productReader = productReader;
+        this.productWriter = productWriter;
+    }
+
+
+
 
     @Override
     public Long insertProducts(ProductsMetadata productsMetadata) {
@@ -28,7 +42,7 @@ public class ProductRepositoryFile implements ProductRepository {
 
         productsMetadata.setId(newId);
 
-        writeProducts(productsMetadata);
+        productWriter.writeProducts(productsMetadata);
         return newId;
     }
 
@@ -48,6 +62,7 @@ public class ProductRepositoryFile implements ProductRepository {
 
     @Override
     public ProductsMetadata fetchProductsMetadata(LocalDate createdDate) {
+        File directory = productsFilesFolderPath.toFile();
         String[] filesList = directory.list((dir, name) -> name.contains(createdDate.toString())); // file koji sadrži datum u imenu negdje
 
         if (filesList == null || filesList.length == 0) {
@@ -57,18 +72,20 @@ public class ProductRepositoryFile implements ProductRepository {
         Optional<String> latestFileName = Arrays.stream(filesList)
                 .max(Comparator.comparing(this::parseLocalDateFromFilename));
 
-        return read(latestFileName.get());
+        return productReader.read(latestFileName.get());
     }
 
     @Override
     public ProductsMetadata fetchProductsMetadata(Long id) {
+        File directory = productsFilesFolderPath.toFile();
         String[] filesList = directory.list((dir, name) -> name.startsWith(id.toString()));
         assert filesList != null;
-        return read(filesList[0]);
+        return productReader.read(filesList[0]);
     }
 
     @Override
     public Integer fetchProductsMetadataCount() {
+        File directory = productsFilesFolderPath.toFile();
         String[] filesList = directory.list((dir, name) -> name.endsWith(".txt"));
         return filesList != null ? filesList.length : 0;
     }
@@ -81,7 +98,7 @@ public class ProductRepositoryFile implements ProductRepository {
         return dateTime.toLocalDate();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<Product> lista = new ArrayList<>();
         Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
         Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
@@ -98,5 +115,5 @@ public class ProductRepositoryFile implements ProductRepository {
 
         System.out.println(String.format("%s", productsMetadata.getDatumVrijemeKreiranja()).replace(":", "$"));
         System.out.println(productRepositoryFile.fetchSumOfPrices(2L));
-    }
+    }*/
 }

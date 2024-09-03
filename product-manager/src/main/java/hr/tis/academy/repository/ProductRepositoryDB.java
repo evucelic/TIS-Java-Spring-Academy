@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("DB")
+@Profile("db")
 public class ProductRepositoryDB implements ProductRepository {
 
     public static void main(String[] args) {

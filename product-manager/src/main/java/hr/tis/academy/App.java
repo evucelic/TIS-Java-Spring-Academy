@@ -17,37 +17,36 @@ import java.util.Arrays;
 public class App {
 
     @Autowired
-    private ApplicationContext applicationContext; // 1. nacin, ako applicationContext bean ne postoji bit ce null i normalno ce se pokrenuti, ne moze biti final
+    private ApplicationContext applicationContext;
 
-//    private final ProductRepositoryInMemory productRepositoryInMemory;
-//
-//    @Autowired
-//    public App(ProductRepositoryInMemory productRepositoryInMemory) {
-//        this.productRepositoryInMemory = productRepositoryInMemory;
-//    }  2. nacin, ako ne postoji bacit ce error i nece se pokrenuti
-
-    private ProductRepository productRepository;
     @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-         this.productRepository = productRepository;
-    } // 3. nacin
+    private ProductRepository productRepository;
 
+    /*public App(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
-
+    @Autowired
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }*/
 
     @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
-            Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
-
-            System.out.printf("Products " + "record count: {" + productRepository.fetchProductsMetadataCount() + "}%n");
-
-//            if (productRepository instanceof ProductRepositoryInMemory || productRepository instanceof ProductRepositoryFile || productRepository instanceof ProductRepositoryDB) {
-//                System.out.println("instanca klase");
-//            }
-
-            
+            System.out.printf("Products record count: %d\n", productRepository.fetchProductsMetadataCount());
+            //Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
+            //ProductRepositoryInMemory productRepositoryInMemory =
+            //      (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
+            //System.out.printf("Products record count: %d\n", productRepositoryInMemory.fetchProductsMetadataCount());
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
+            if (productRepository instanceof ProductRepositoryInMemory){
+                System.out.println("In Memory");
+            } else if (productRepository instanceof ProductRepositoryFile){
+                System.out.println("File");
+            } else if (productRepository instanceof ProductRepositoryDB){
+                System.out.println("DB");
+            }
         };
     }
 

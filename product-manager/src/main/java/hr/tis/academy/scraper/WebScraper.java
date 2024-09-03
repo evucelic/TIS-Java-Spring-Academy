@@ -7,6 +7,8 @@ import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,19 +16,28 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class WebScraper {
+
+    @Value("${konzum.url}")
+    private String urlKonzum;
+
+    @Value("${number.of.pages.for.scraping}")
+    private Integer numberOfPagesForScraping;
     public ProductsMetadata fetchProducts() throws IOException {
+
         Elements products = null;
         String naslov = null;
         Document doc = null;
         List<Product> produkti = new ArrayList<>();
-        for (int i=1; i<=3; i++) {
+        for (int i = 1; i<= numberOfPagesForScraping; i++) {
             if (i==1) {
-                doc = Jsoup.connect("https://www.konzum.hr/web/posebne-ponude").get();
+                doc = Jsoup.connect(urlKonzum).get();
                 products = doc.select("div.product-wrapper");
             } else {
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("https://www.konzum.hr/web/posebne-ponude?page=");
+                stringBuilder.append(urlKonzum);
+                stringBuilder.append("?page=");
                 stringBuilder.append(i);
                 stringBuilder.append("&per_page=25&sort%5B%5D=");
                 doc = Jsoup.connect(stringBuilder.toString()).get();
