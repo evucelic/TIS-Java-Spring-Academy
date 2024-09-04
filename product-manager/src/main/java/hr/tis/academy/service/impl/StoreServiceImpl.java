@@ -8,17 +8,17 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class StoreServiceImpl implements StoreService {
 
-    private final Map<Long, StoreDto> storeMap = new HashMap<>();
+    private final TreeMap<Long, StoreDto> storeMap = new TreeMap<>(); // da sacuva poredak
 
     @PostConstruct
-    public void init(){
+    public void init() {
         // primjer
         AddressDto address1 = new AddressDto("New York", "USA", "5th Avenue", "101");
         AddressDto address2 = new AddressDto("Los Angeles", "USA", "Sunset Boulevard", "202");
@@ -41,5 +41,13 @@ public class StoreServiceImpl implements StoreService {
         return storeMap.get(id);
     }
 
+    @Override
+    public void addStore(StoreDto store) {
+        Map.Entry<Long, StoreDto> lastEntry = storeMap.lastEntry();
+
+        Long newId = (lastEntry == null) ? 1L : lastEntry.getKey() + 1;
+
+        storeMap.put(newId, store);
+    }
 
 }

@@ -11,8 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
-
 @SpringBootApplication
 public class App {
 
@@ -31,6 +29,10 @@ public class App {
         this.applicationContext = applicationContext;
     }*/
 
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
+
     @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
@@ -40,17 +42,13 @@ public class App {
             //      (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
             //System.out.printf("Products record count: %d\n", productRepositoryInMemory.fetchProductsMetadataCount());
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
-            if (productRepository instanceof ProductRepositoryInMemory){
+            if (productRepository instanceof ProductRepositoryInMemory) {
                 System.out.println("In Memory");
-            } else if (productRepository instanceof ProductRepositoryFile){
+            } else if (productRepository instanceof ProductRepositoryFile) {
                 System.out.println("File");
-            } else if (productRepository instanceof ProductRepositoryDB){
+            } else if (productRepository instanceof ProductRepositoryDB) {
                 System.out.println("DB");
             }
         };
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
     }
 }
