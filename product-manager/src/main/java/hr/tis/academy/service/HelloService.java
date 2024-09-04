@@ -1,8 +1,16 @@
 package hr.tis.academy.service;
 
 import hr.tis.academy.dto.DaysOfWeekResponse;
-import hr.tis.academy.dto.HelloResponse;
+import hr.tis.academy.dto.IsWeekendResponse;
+
+import java.time.DayOfWeek;
+import java.util.List;
+
 
 public interface HelloService {
-    public DaysOfWeekResponse daysOfWeek();
+    DaysOfWeekResponse daysOfWeek();
+
+    String greet(List<String> namesList);
+
+    IsWeekendResponse isWeekend(DayOfWeek day);
 }

@@ -6,5 +6,5 @@ import java.util.List;
 public record DaysOfWeekResponse(DayOfWeek today,
                                  boolean isWeekend,
                                  List<DayOfWeek> oddDays,
-                                 List<DayOfWeek> evenDays){
+                                 List<DayOfWeek> evenDays)  {
 }
