@@ -37,6 +37,16 @@ public class StoreController {
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
+    @DeleteMapping ("/{storeId}")
+    public ResponseEntity<String> deleteStoreById(@PathVariable Long storeId) {
+        StoreDto store = storeService.getStoreById(storeId);
+        if (store == null) {
+            return new ResponseEntity<>("Store not found", HttpStatus.NOT_FOUND);
+        }
+        storeService.deleteStoreById(storeId);
+        return new ResponseEntity<>(String.format("Store with id %d deleted", storeId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> createStore(@RequestBody StoreDto store) {
         storeService.addStore(store);

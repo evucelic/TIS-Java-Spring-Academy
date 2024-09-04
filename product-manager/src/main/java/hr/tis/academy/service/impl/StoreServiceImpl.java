@@ -50,4 +50,9 @@ public class StoreServiceImpl implements StoreService {
         storeMap.put(newId, store);
     }
 
+    @Override
+    public void deleteStoreById(Long id) {
+        storeMap.remove(id);
+    }
+
 }

@@ -12,4 +12,5 @@ public interface StoreService {
     StoreDto getStoreById(Long id);
 
     void addStore(StoreDto store);
+    void deleteStoreById(Long id);
 }
