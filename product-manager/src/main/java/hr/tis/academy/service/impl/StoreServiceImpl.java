@@ -55,4 +55,13 @@ public class StoreServiceImpl implements StoreService {
         storeMap.remove(id);
     }
 
+    @Override
+    public boolean updateStore(Long id, StoreDto store) {
+        if (!storeMap.containsKey(id)) {
+            return false;
+        }
+        storeMap.put(id, store); // zamijeni stari ducan novim podacima
+        return true;
+    }
+
 }

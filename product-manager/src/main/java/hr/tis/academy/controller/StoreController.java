@@ -47,6 +47,17 @@ public class StoreController {
         return new ResponseEntity<>(String.format("Store with id %d deleted", storeId), HttpStatus.OK);
     }
 
+    @PutMapping("/{storeId}")
+    public ResponseEntity<String> updateStore(@PathVariable Long storeId, @RequestBody StoreDto storeDto) {
+        boolean isUpdated = storeService.updateStore(storeId, storeDto);
+
+        if (!isUpdated) {
+            return new ResponseEntity<>("Store not found", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(String.format("Store with id %d updated successfully", storeId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> createStore(@RequestBody StoreDto store) {
         storeService.addStore(store);
