@@ -13,4 +13,6 @@ public interface HelloService {
     String greet(List<String> namesList);
 
     IsWeekendResponse isWeekend(DayOfWeek day);
+
+    byte[] createImage(String text, int width, int height, int red, int green, int blue);
 }
