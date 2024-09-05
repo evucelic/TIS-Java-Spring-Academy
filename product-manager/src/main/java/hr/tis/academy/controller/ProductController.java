@@ -8,11 +8,12 @@ import hr.tis.academy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -26,8 +27,18 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProductsMetadata(), HttpStatus.OK);
     }
 
-    @GetMapping("save")
+    @PutMapping("save")
     public void saveProductsMetadataDto() throws IOException {
         productService.save();
+    }
+
+    @GetMapping("date")
+    public ResponseEntity<ProductsMetadataDto> getProductsMetadataDtoByDate
+            (@RequestParam String year,
+             @RequestParam String month,
+             @RequestParam String day) {
+        String dateString = year + "-" + month + "-" + day;
+        LocalDate localDate = LocalDate.parse(dateString);
+        return new ResponseEntity<>(productService.getByDate(localDate), HttpStatus.OK);
     }
 }
