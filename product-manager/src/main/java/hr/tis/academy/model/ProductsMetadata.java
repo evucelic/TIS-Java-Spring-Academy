@@ -16,10 +16,12 @@ public class ProductsMetadata{
     private Long id;
 
     @Column
-    private LocalDateTime datumVrijemeKreiranja;
+    private String naslov;
 
     @Column
-    private String naslov;
+    private LocalDateTime datumVrijemeKreiranja;
+
+
 
     @OneToMany(mappedBy = "productsMetadata", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> popisProizvoda = new ArrayList<>();

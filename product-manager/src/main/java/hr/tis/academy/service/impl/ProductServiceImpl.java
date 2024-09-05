@@ -5,6 +5,7 @@ import hr.tis.academy.mapper.ProductsMetadataMapper;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.ProductRepository;
 import hr.tis.academy.repository.ProductRepositoryDB;
+import hr.tis.academy.repository.ProductsMetadataRepository;
 import hr.tis.academy.scraper.WebScraper;
 import hr.tis.academy.service.ProductService;
 import org.h2.engine.Database;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductsMetadataRepository productsMetadataRepository;
 
     @Autowired
     private WebScraper webScraper;
@@ -26,8 +27,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductsMetadataMapper productsMetadataMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductServiceImpl(ProductsMetadataRepository productsMetadataRepository) {
+        this.productsMetadataRepository = productsMetadataRepository;
     }
 
     @Override
@@ -42,12 +43,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save() throws IOException {
-        productRepository.insertProducts(webScraper.fetchProducts());
+        //TODO
+        productsMetadataRepository.insert(webScraper.fetchProducts().getNaslov(), webScraper.fetchProducts().getDatumVrijemeKreiranja());
     }
 
     @Override
     public ProductsMetadataDto getByDate(LocalDate date) {
-        return productsMetadataMapper.toDto(productRepository.fetchProductsMetadata(date));
+        return productsMetadataMapper.toDto(productsMetadataRepository.fetchByDate(date));
     }
 
 }

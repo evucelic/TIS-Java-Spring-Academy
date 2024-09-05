@@ -1,6 +1,8 @@
 package hr.tis.academy;
 
+import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.*;
+import hr.tis.academy.scraper.WebScraper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
