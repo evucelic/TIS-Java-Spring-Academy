@@ -22,6 +22,9 @@ public class App {
     @Autowired
     private ProductsMetadataRepository productsMetadataRepository;
 
+    @Autowired
+    private ProductRepositoryJPA productsRepositoryJPA;
+
     /*public App(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
@@ -39,6 +42,8 @@ public class App {
     public ApplicationRunner applicationRunner() {
         return args -> {
             System.out.printf("Products record count: %d\n", productRepository.fetchProductsMetadataCount());
+
+            productsRepositoryJPA.fetchByNazivAndOcjena("",0);
             //Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
             //ProductRepositoryInMemory productRepositoryInMemory =
             //      (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
