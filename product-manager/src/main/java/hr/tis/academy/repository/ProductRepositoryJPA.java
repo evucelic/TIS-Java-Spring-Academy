@@ -19,4 +19,7 @@ public interface ProductRepositoryJPA extends JpaRepository<Product, Long> {
             "SELECT * FROM PRODUCT_MANAGER.PRODUCT p WHERE p.naziv = :naziv AND p.ocjena = :ocjena")
     ProductsMetadata fetchByTitleAndCreatedTimeNative(String naziv, LocalDateTime ocjena);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM PRODUCTS_METADATA WHERE DATUM_VRIJEME_KREIRANJA BETWEEN ? AND ?")
+    ProductsMetadata fetchProductsRecord(LocalDateTime startDate, LocalDateTime endDate);
+
 }
