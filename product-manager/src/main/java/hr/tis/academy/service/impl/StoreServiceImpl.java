@@ -67,6 +67,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public boolean updateStoreNonNullValues(Long id, StoreDto store) {
         StoreDto oldStore = getStoreById(id);
+
         if (oldStore == null) {
             return false;
         }

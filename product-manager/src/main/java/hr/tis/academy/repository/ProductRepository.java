@@ -1,5 +1,6 @@
 package hr.tis.academy.repository;
 
+import hr.tis.academy.dto.ProductsMetadataDto;
 import hr.tis.academy.model.Product;
 import hr.tis.academy.model.ProductsMetadata;
 

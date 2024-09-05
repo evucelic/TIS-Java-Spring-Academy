@@ -1,5 +1,7 @@
 package hr.tis.academy.service.impl;
 
+import hr.tis.academy.dto.ProductsMetadataDto;
+import hr.tis.academy.mapper.ProductsMetadataMapper;
 import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.ProductRepository;
 import hr.tis.academy.repository.ProductRepositoryDB;
@@ -20,32 +22,31 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private WebScraper webScraper;
 
+    @Autowired
+    private ProductsMetadataMapper productsMetadataMapper;
+
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     @Override
-    public ProductsMetadata getProductsMetadata() {
+    public ProductsMetadataDto getProductsMetadata() {
         try {
-            return webScraper.fetchProducts();
+            ProductsMetadata productsMetadata = webScraper.fetchProducts();
+            return productsMetadataMapper.toDto(productsMetadata);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void save() {
-        productRepository.insertProducts(getProductsMetadata());
+    public void save() throws IOException {
+        productRepository.insertProducts(webScraper.fetchProducts());
     }
 
     @Override
-    public ProductsMetadata getByDate(LocalDate date) {
-        return productRepository.fetchProductsMetadata(date);
+    public ProductsMetadataDto getByDate(LocalDate date) {
+        return productsMetadataMapper.toDto(productRepository.fetchProductsMetadata(date));
     }
 
-    public static void main(String[] args) {
-        ProductServiceImpl productService = new ProductServiceImpl(new ProductRepositoryDB());
-        productService.save();
-
-    }
 }
