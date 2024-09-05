@@ -66,8 +66,18 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public boolean updateStoreNonNullValues(Long id, StoreDto store) {
-        //TODO
-        return false;
+        StoreDto oldStore = getStoreById(id);
+        if (oldStore == null) {
+            return false;
+        }
+        StoreDto modifiedStore = new StoreDto(
+                store.storeName() != null ? store.storeName() : oldStore.storeName(),
+                store.address() != null ? store.address() : oldStore.address(),
+                store.telephoneNumber() != null ? store.telephoneNumber() : oldStore.telephoneNumber(),
+                store.email() != null ? store.email() : oldStore.email(),
+                store.workingDays() != null ? store.workingDays() : oldStore.workingDays());
+        storeMap.put(id, modifiedStore);
+        return true;
     }
 
 }
