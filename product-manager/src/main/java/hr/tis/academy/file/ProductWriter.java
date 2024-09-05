@@ -60,13 +60,13 @@ public class ProductWriter {
         return String.format("%" + n + "s", s);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<Product> lista = new ArrayList<>();
         Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
         Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
         lista.add(proizvod1);
         lista.add(proizvod2);
         ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
-    }
+    }*/
 
 }

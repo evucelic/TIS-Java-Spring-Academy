@@ -1,12 +1,39 @@
 package hr.tis.academy.model;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product {
+@Entity
+@Table(name = "PRODUCTS", schema = "PRODUCT_MANAGER")
+public class Product implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String naziv;
+
+    @Column
     private BigDecimal cijena;
+
+    @Column
     private String mjernaJedinica;
+
+    @Column
     private Integer ocjena = 0;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCTS_METADATA_ID", nullable = false)
+    private ProductsMetadata productsMetadata;
+
+
+    public Product(String naziv, BigDecimal cijena, String mjernaJedinica) {
+        this.naziv = naziv;
+        this.cijena = cijena;
+        this.mjernaJedinica = mjernaJedinica;
+    }
 
     public Product(String naziv, BigDecimal cijena, String mjernaJedinica, Integer ocjena) {
         this.naziv = naziv;
@@ -15,11 +42,7 @@ public class Product {
         this.ocjena = ocjena;
     }
 
-    public Product(String naziv, BigDecimal cijena, String mjernaJedinica) {
-        this.naziv = naziv;
-        this.cijena = cijena;
-        this.mjernaJedinica = mjernaJedinica;
-    }
+    public Product(){}
 
     public String getNaziv() {
         return naziv;

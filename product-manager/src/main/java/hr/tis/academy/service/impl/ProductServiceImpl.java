@@ -7,6 +7,7 @@ import hr.tis.academy.repository.ProductRepository;
 import hr.tis.academy.repository.ProductRepositoryDB;
 import hr.tis.academy.scraper.WebScraper;
 import hr.tis.academy.service.ProductService;
+import org.h2.engine.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

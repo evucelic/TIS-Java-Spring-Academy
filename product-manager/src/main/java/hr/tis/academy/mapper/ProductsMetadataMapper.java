@@ -8,6 +8,5 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ProductsMetadataMapper {
     ProductsMetadataMapper INSTANCE = Mappers.getMapper(ProductsMetadataMapper.class);
-
     ProductsMetadataDto toDto(ProductsMetadata productsMetadata);
 }

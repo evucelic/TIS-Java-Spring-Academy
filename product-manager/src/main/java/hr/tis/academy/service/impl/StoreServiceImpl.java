@@ -7,10 +7,7 @@ import hr.tis.academy.service.StoreService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -66,18 +63,19 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public boolean updateStoreNonNullValues(Long id, StoreDto store) {
-        StoreDto oldStore = getStoreById(id);
-
-        if (oldStore == null) {
+        //TODO
+        if (!storeMap.containsKey(id)) {
             return false;
         }
-        StoreDto modifiedStore = new StoreDto(
-                store.storeName() != null ? store.storeName() : oldStore.storeName(),
-                store.address() != null ? store.address() : oldStore.address(),
-                store.telephoneNumber() != null ? store.telephoneNumber() : oldStore.telephoneNumber(),
-                store.email() != null ? store.email() : oldStore.email(),
-                store.workingDays() != null ? store.workingDays() : oldStore.workingDays());
-        storeMap.put(id, modifiedStore);
+        StoreDto storeOld = storeMap.get(id);
+        StoreDto storeDto = new StoreDto(
+                Optional.ofNullable(store.storeName()).orElse(storeOld.storeName()),
+                Optional.ofNullable(store.address()).orElse(storeOld.address()),
+                Optional.ofNullable(store.telephoneNumber()).orElse(storeOld.telephoneNumber()),
+                Optional.ofNullable(store.email()).orElse(storeOld.email()),
+                Optional.ofNullable(store.workingDays()).orElse(storeOld.workingDays())
+        );
+        storeMap.put(id, storeDto);
         return true;
     }
 
