@@ -22,4 +22,6 @@ public interface ProductRepositoryJPA extends JpaRepository<Product, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM PRODUCTS_METADATA WHERE DATUM_VRIJEME_KREIRANJA BETWEEN ? AND ?")
     ProductsMetadata fetchProductsRecord(LocalDateTime startDate, LocalDateTime endDate);
 
+    @Query("select avg(p.ocjena) from Product p where p.productsMetadata.id = :id ")
+    Product fetchAvgRating(Long id);
 }
