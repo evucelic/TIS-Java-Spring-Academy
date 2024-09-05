@@ -14,4 +14,5 @@ public interface StoreService {
     void addStore(StoreDto store);
     void deleteStoreById(Long id);
     boolean updateStore(Long id, StoreDto store);
+    boolean updateStoreNonNullValues(Long id, StoreDto store);
 }

@@ -64,4 +64,10 @@ public class StoreServiceImpl implements StoreService {
         return true;
     }
 
+    @Override
+    public boolean updateStoreNonNullValues(Long id, StoreDto store) {
+        //TODO
+        return false;
+    }
+
 }

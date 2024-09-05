@@ -58,9 +58,20 @@ public class StoreController {
         return new ResponseEntity<>(String.format("Store with id %d updated successfully", storeId), HttpStatus.OK);
     }
 
+    @PatchMapping("/{storeId}")
+    public ResponseEntity<String> updateStoreNonNullValues(@PathVariable Long storeId, @RequestBody StoreDto storeDto) {
+        boolean isUpdated = storeService.updateStoreNonNullValues(storeId, storeDto);
+
+        if (!isUpdated) {
+            return new ResponseEntity<>("Store not found", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(String.format("Store with id %d updated successfully", storeId), HttpStatus.OK);
+    }
+
     @PostMapping
-    public ResponseEntity<String> createStore(@RequestBody StoreDto store) {
-        storeService.addStore(store);
+    public ResponseEntity<String> createStore(@RequestBody StoreDto storeDto) {
+        storeService.addStore(storeDto);
         return new ResponseEntity<>("Store added", HttpStatus.CREATED);
     }
 }
