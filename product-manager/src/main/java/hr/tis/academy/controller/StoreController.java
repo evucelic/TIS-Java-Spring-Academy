@@ -1,5 +1,6 @@
 package hr.tis.academy.controller;
 
+import hr.tis.academy.configuration.ExceptionHandlerController;
 import hr.tis.academy.dto.StoreDto;
 import hr.tis.academy.repository.exception.NoProductFoundException;
 import hr.tis.academy.service.impl.StoreServiceImpl;
@@ -15,8 +16,14 @@ import java.util.List;
 @RequestMapping("/stores")
 public class StoreController {
 
-    @Autowired
-    StoreServiceImpl storeService;
+    private final StoreServiceImpl storeService;
+
+    private final ExceptionHandlerController exceptionHandlerController;
+
+    public StoreController(StoreServiceImpl storeService, ExceptionHandlerController exceptionHandlerController) {
+        this.storeService = storeService;
+        this.exceptionHandlerController = exceptionHandlerController;
+    }
 
     @GetMapping
     public ResponseEntity<List<StoreDto>> getAll() {
@@ -33,12 +40,13 @@ public class StoreController {
     public ResponseEntity<StoreDto> getStoreById(@PathVariable Long storeId) {
         StoreDto store = storeService.getStoreById(storeId);
         if (store == null) {
-            throw new NoProductFoundException();
+            throw new NoProductFoundException("Record with that id doesnt exist");
+
         }
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
-    @DeleteMapping ("/{storeId}")
+    @DeleteMapping("/{storeId}")
     public ResponseEntity<String> deleteStoreById(@PathVariable Long storeId) {
         StoreDto store = storeService.getStoreById(storeId);
         if (store == null) {

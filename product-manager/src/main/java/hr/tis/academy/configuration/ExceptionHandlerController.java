@@ -25,11 +25,10 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NoProductFoundException.class)
-    public final ResponseEntity<String> handleException(NoProductFoundException exception) {
+    public ResponseEntity<String> handleNoProductFoundException(NoProductFoundException noProductFoundException){
         var uuid = UUID.randomUUID().toString();
-        LOGGER.error("Unhandled exception uuid: '{}'", uuid, exception);
+        LOGGER.error("Unhandled exception uuid: '{}'", uuid, noProductFoundException);
         String errorMessage = String.format("Product not found. Reference ID: %s", uuid);
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
-
 }

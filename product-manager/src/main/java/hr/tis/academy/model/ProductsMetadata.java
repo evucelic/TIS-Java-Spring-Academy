@@ -1,15 +1,28 @@
 package hr.tis.academy.model;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsMetadata {
+@Entity
+@Table(name = "PRODUCTS_METADATA", schema = "PRODUCT_MANAGER")
+public class ProductsMetadata{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private LocalDateTime datumVrijemeKreiranja;
+
+    @Column
     private String naslov;
-    private List<Product> popisProizvoda;
+
+    @OneToMany(mappedBy = "productsMetadata", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Product> popisProizvoda = new ArrayList<>();
 
     public ProductsMetadata(Long id, LocalDateTime datumVrijemeKreiranja, String naslov, List<Product> popisProizvoda) {
         this.id = id;
@@ -17,6 +30,8 @@ public class ProductsMetadata {
         this.naslov = naslov;
         this.popisProizvoda = popisProizvoda;
     }
+
+    public ProductsMetadata(){}
 
     public Long getId() {
         return id;
@@ -60,7 +75,7 @@ public class ProductsMetadata {
                 '}';
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<Product> lista = new ArrayList<>();
         Product proizvod1 = new Product("mlijeko", new BigDecimal("5"), "EUR");
         Product proizvod2 = new Product("sir", new BigDecimal("10"), "EUR", 5);
@@ -69,5 +84,5 @@ public class ProductsMetadata {
         ProductsMetadata productsMetadata = new ProductsMetadata(1L, LocalDateTime.now(), "productmetadata",lista);
 
         System.out.println(productsMetadata);
-    }
+    }*/
 }

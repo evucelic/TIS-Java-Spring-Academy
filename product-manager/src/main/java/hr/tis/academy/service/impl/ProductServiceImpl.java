@@ -2,9 +2,12 @@ package hr.tis.academy.service.impl;
 
 import hr.tis.academy.dto.ProductsMetadataDto;
 import hr.tis.academy.mapper.ProductsMetadataMapper;
+import hr.tis.academy.model.ProductsMetadata;
 import hr.tis.academy.repository.ProductRepository;
+import hr.tis.academy.repository.ProductRepositoryDB;
 import hr.tis.academy.scraper.WebScraper;
 import hr.tis.academy.service.ProductService;
+import org.h2.engine.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductsMetadataDto getProductsMetadata() {
         try {
-            return productsMetadataMapper.toDto(webScraper.fetchProducts());
+            ProductsMetadata productsMetadata = webScraper.fetchProducts();
+            return productsMetadataMapper.toDto(productsMetadata);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -46,9 +50,4 @@ public class ProductServiceImpl implements ProductService {
         return productsMetadataMapper.toDto(productRepository.fetchProductsMetadata(date));
     }
 
-//    public static void main(String[] args) {
-//        ProductServiceImpl productService = new ProductServiceImpl(new ProductRepositoryDB());
-//        productService.save();
-//
-//    }
 }
