@@ -1,6 +1,7 @@
 package hr.tis.academy.controller;
 
 import hr.tis.academy.dto.StoreDto;
+import hr.tis.academy.repository.exception.NoProductFoundException;
 import hr.tis.academy.service.impl.StoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class StoreController {
     public ResponseEntity<StoreDto> getStoreById(@PathVariable Long storeId) {
         StoreDto store = storeService.getStoreById(storeId);
         if (store == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            throw new NoProductFoundException();
         }
         return new ResponseEntity<>(store, HttpStatus.OK);
     }

@@ -10,4 +10,8 @@ public class NoProductFoundException extends RuntimeException {
     public NoProductFoundException(Exception e) {
         super(e);
     }
+
+    public NoProductFoundException() {
+
+    }
 }
