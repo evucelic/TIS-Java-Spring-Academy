@@ -16,8 +16,6 @@ public class App {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private ProductsMetadataRepository productsMetadataRepository;
@@ -41,8 +39,6 @@ public class App {
     @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
-            System.out.printf("Products record count: %d\n", productRepository.fetchProductsMetadataCount());
-
             productsRepositoryJPA.fetchByNazivAndOcjena("",0);
             //Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
             //ProductRepositoryInMemory productRepositoryInMemory =
