@@ -29,18 +29,21 @@ public class Product implements Serializable {
     private ProductsMetadata productsMetadata;
 
 
-    public Product(String naziv, BigDecimal cijena, String mjernaJedinica) {
+    public Product(String naziv, BigDecimal cijena, String mjernaJedinica, ProductsMetadata productsMetadata) {
         this.naziv = naziv;
         this.cijena = cijena;
         this.mjernaJedinica = mjernaJedinica;
+        this.productsMetadata = productsMetadata;
     }
 
-    public Product(String naziv, BigDecimal cijena, String mjernaJedinica, Integer ocjena) {
+    public Product(String naziv, BigDecimal cijena, String mjernaJedinica, Integer ocjena, ProductsMetadata productsMetadata) {
         this.naziv = naziv;
         this.cijena = cijena;
         this.mjernaJedinica = mjernaJedinica;
         this.ocjena = ocjena;
+        this.productsMetadata = productsMetadata;
     }
+
 
     public Product(){}
 
