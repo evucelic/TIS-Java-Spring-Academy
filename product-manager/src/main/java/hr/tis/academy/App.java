@@ -40,22 +40,23 @@ public class App {
     @Bean("myApplicationRunner")
     public ApplicationRunner applicationRunner() {
         return args -> {
-            System.out.printf("Products record count: %d\n", productRepository.fetchProductsMetadataCount());
+            /*System.out.printf("Products record count: %d\n", productRepository.fetchProductsMetadataCount());
             //Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
             //ProductRepositoryInMemory productRepositoryInMemory =
             //      (ProductRepositoryInMemory) applicationContext.getBean("myProductRepositoryInMemory");
             //System.out.printf("Products record count: %d\n", productRepositoryInMemory.fetchProductsMetadataCount());
             //org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
-            /*if (productRepository instanceof ProductRepositoryInMemory) {
+            if (productRepository instanceof ProductRepositoryInMemory) {
                 System.out.println("In Memory");
             } else if (productRepository instanceof ProductRepositoryFile) {
                 System.out.println("File");
             } else if (productRepository instanceof ProductRepositoryDB) {
                 System.out.println("DB");
-            }*/
+            }
             productsMetadataRepository.findByNaslovAndDatumVrijemeKreiranja("asd", LocalDateTime.now());
             productsMetadataRepository.fetchByTitleAndCreatedTimeJPQL("asd", LocalDateTime.MAX);
             productsMetadataRepository.fetchByTitleAndCreatedTimeNative("asd", LocalDateTime.MIN);
+             */
         };
     }
 }

@@ -18,17 +18,16 @@ import java.time.LocalDate;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductsMetadataRepository productsMetadataRepository;
+    private final ProductsMetadataRepository productsMetadataRepository;
 
-    @Autowired
-    private WebScraper webScraper;
+    private final WebScraper webScraper;
 
-    @Autowired
-    private ProductsMetadataMapper productsMetadataMapper;
+    private final ProductsMetadataMapper productsMetadataMapper;
 
-    public ProductServiceImpl(ProductsMetadataRepository productsMetadataRepository) {
+    public ProductServiceImpl(ProductsMetadataRepository productsMetadataRepository, WebScraper webScraper, ProductsMetadataMapper productsMetadataMapper) {
         this.productsMetadataRepository = productsMetadataRepository;
+        this.webScraper = webScraper;
+        this.productsMetadataMapper = productsMetadataMapper;
     }
 
     @Override
@@ -42,9 +41,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save() throws IOException {
-        //TODO
-        productsMetadataRepository.insert(webScraper.fetchProducts().getNaslov(), webScraper.fetchProducts().getDatumVrijemeKreiranja());
+    public void save(ProductsMetadata productsMetadata){
+        productsMetadataRepository.save(productsMetadata);
     }
 
     @Override

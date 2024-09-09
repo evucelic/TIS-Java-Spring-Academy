@@ -10,6 +10,6 @@ import java.time.LocalDate;
 public interface ProductService {
 
     ProductsMetadataDto getProductsMetadata();
-    void save() throws IOException;
+    void save(ProductsMetadata productsMetadata) throws IOException;
     ProductsMetadataDto getByDate(LocalDate date);
 }
