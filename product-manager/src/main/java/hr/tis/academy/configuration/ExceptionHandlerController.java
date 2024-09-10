@@ -1,9 +1,6 @@
 package hr.tis.academy.configuration;
 
-import hr.tis.academy.repository.exception.AttractionNotFoundException;
-import hr.tis.academy.repository.exception.RatingNotValidException;
-import hr.tis.academy.repository.exception.UserAlreadyExistsException;
-import hr.tis.academy.repository.exception.UserNotFoundException;
+import hr.tis.academy.repository.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -66,6 +63,18 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", ratingNotValidException.getMessage());
+        response.put("timestamp", new Timestamp(System.currentTimeMillis()));
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FavoriteAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleRatingNotValidException(FavoriteAlreadyExistsException favoriteAlreadyExistsException){
+        var uuid = UUID.randomUUID().toString();
+        LOGGER.error("Rating not valid exception uuid: '{}'", uuid, favoriteAlreadyExistsException);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Attraction is already in the user's favorites");
         response.put("timestamp", new Timestamp(System.currentTimeMillis()));
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

@@ -8,6 +8,7 @@ import hr.tis.academy.model.User;
 import hr.tis.academy.repository.AttractionRepository;
 import hr.tis.academy.repository.UserRepository;
 import hr.tis.academy.repository.exception.AttractionNotFoundException;
+import hr.tis.academy.repository.exception.FavoriteAlreadyExistsException;
 import hr.tis.academy.repository.exception.UserAlreadyExistsException;
 import hr.tis.academy.repository.exception.UserNotFoundException;
 import hr.tis.academy.service.UserService;
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (user.getAttractionsUser().contains(attraction)) {
-            throw new IllegalArgumentException("Attraction is already in the user's favorites");
+            throw new FavoriteAlreadyExistsException();
         }
 
         user.getAttractionsUser().add(attraction);
