@@ -31,13 +31,7 @@ public class Attraction {
     @OneToMany(mappedBy = "attractionReview", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_favorites",
-            schema = "SIGHTSEEING",
-            joinColumns = @JoinColumn(name = "attractionId"),
-            inverseJoinColumns = @JoinColumn(name = "userId")
-    )
+    @ManyToMany(mappedBy = "attractionsUser")
     private List<User> favoritedByUsers = new ArrayList<>();
 
     @ManyToOne

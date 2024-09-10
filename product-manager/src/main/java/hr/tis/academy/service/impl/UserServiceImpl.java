@@ -4,6 +4,7 @@ import hr.tis.academy.dto.FavoritesResponse;
 import hr.tis.academy.dto.UserDto;
 import hr.tis.academy.mapper.UserMapper;
 import hr.tis.academy.model.Attraction;
+import hr.tis.academy.model.User;
 import hr.tis.academy.repository.AttractionRepository;
 import hr.tis.academy.repository.UserRepository;
 import hr.tis.academy.repository.exception.AttractionNotFoundException;
@@ -45,15 +46,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addFavorite(FavoritesResponse favoritesResponse, Long userId) {
-        Attraction existingAttraction = attractionRepository.findByAttractionName(favoritesResponse.attractionName());
-        if (userRepository.findByUserId(userId) == null) {
-            throw new UserNotFoundException("User with that ID does not exist");
-        } else if (existingAttraction == null) {
-            throw new AttractionNotFoundException("Attraction with that name does not exist");
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " does not exist"));
+
+        Attraction attraction = attractionRepository.findByAttractionName(favoritesResponse.attractionName());
+        if (attraction == null) {
+            throw new AttractionNotFoundException("Attraction with name " + favoritesResponse.attractionName() + " does not exist");
         }
 
-        //userRepository.findByUserId(userId).addToList(attractionRepository.findByAttractionName(favoritesResponse.attractionName()));
-        userRepository.insertUserFavourites(existingAttraction.getAttractionId(), userId);
+        if (user.getAttractionsUser().contains(attraction)) {
+            throw new IllegalArgumentException("Attraction is already in the user's favorites");
+        }
+
+        user.getAttractionsUser().add(attraction);
+
+        attraction.getFavoritedByUsers().add(user);
+
+        // Posto je many to many, u listu od Attraction spremamo usera koji je favoriteao, u listu od User spremamo attraction koji su favoriteali
+        // TLDR dvostrana veza
+        userRepository.save(user);
+        attractionRepository.save(attraction);
     }
 
     private boolean validateEmail(String email) {
