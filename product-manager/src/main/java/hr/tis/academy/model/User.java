@@ -16,8 +16,8 @@ public class User {
     @Column
     private String name;
 
-    @Column(unique = true)
-    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @Column(unique = true, nullable = false)
+    @Email(message = "Email is not valid")
     private String email;
 
     @ManyToMany

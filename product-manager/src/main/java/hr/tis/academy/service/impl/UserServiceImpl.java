@@ -15,7 +15,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        userRepository.save(user);
+    public void addUser(UserDto userDto) {
+        if (userRepository.findByEmail(userDto.email()) != null) {
+            throw new UserAlreadyExistsException("Vec postoji korisnik s tim emailom");
+        } else if (!validateEmail(userDto.email())) {
+            throw new UserAlreadyExistsException("Neispravan email");
+        }
+        userRepository.save(userMapper.toUserEntity(userDto));
     }
 }
