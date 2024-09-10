@@ -21,7 +21,12 @@ public class User {
     @Email(message = "Email is not valid")
     private String email;
 
-    @ManyToMany(mappedBy = "favoritedByUsers")
+    @ManyToMany
+    @JoinTable(
+            name = "USER_FAVORITES", schema = "SIGHTSEEING",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ATTRACTION_ID")
+    )
     private List<Attraction> attractionsUser = new ArrayList<>();
 
     @OneToMany(mappedBy = "userReview", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
