@@ -3,6 +3,7 @@ package hr.tis.academy.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,13 @@ public class Attraction {
     private List<Review> reviews;
 
     @ManyToMany
-    private List<User> favoritedByUsers;
+    @JoinTable(
+            name = "user_favorites",
+            schema = "SIGHTSEEING",
+            joinColumns = @JoinColumn(name = "attractionId"),
+            inverseJoinColumns = @JoinColumn(name = "userId")
+    )
+    private List<User> favoritedByUsers = new ArrayList<>();
 
     @ManyToOne
     private Location attractionLocation;

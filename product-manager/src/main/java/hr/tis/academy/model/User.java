@@ -3,6 +3,7 @@ package hr.tis.academy.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,8 @@ public class User {
     @Email(message = "Email is not valid")
     private String email;
 
-    @ManyToMany
-    private List<Attraction> attractionsUser;
+    @ManyToMany(mappedBy = "favoritedByUsers")
+    private List<Attraction> attractionsUser = new ArrayList<>();
 
     @OneToMany(mappedBy = "userReview", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Review> userReviews;

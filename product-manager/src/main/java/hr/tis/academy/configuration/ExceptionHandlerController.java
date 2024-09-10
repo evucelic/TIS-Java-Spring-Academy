@@ -1,6 +1,9 @@
 package hr.tis.academy.configuration;
 
+import hr.tis.academy.repository.exception.AttractionNotFoundException;
+import hr.tis.academy.repository.exception.RatingNotValidException;
 import hr.tis.academy.repository.exception.UserAlreadyExistsException;
+import hr.tis.academy.repository.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

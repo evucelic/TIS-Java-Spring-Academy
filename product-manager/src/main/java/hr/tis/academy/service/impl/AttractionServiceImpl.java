@@ -5,8 +5,17 @@ import hr.tis.academy.dto.LocationAttractionsResponse;
 import hr.tis.academy.dto.ReviewResponse;
 import hr.tis.academy.model.Attraction;
 import hr.tis.academy.model.Location;
+import hr.tis.academy.model.Review;
 import hr.tis.academy.repository.LocationRepository;
+import hr.tis.academy.repository.AttractionRepository;
+import hr.tis.academy.repository.ReviewRepository;
+import hr.tis.academy.repository.exception.AttractionNotFoundException;
+import hr.tis.academy.repository.exception.RatingNotValidException;
 import hr.tis.academy.service.AttractionService;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
