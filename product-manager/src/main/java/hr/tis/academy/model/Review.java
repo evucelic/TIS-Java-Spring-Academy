@@ -35,7 +35,6 @@ public class Review {
     @ManyToOne
     private User userReview;
 
-
     public Review() {
     }
 
@@ -46,6 +45,13 @@ public class Review {
         this.reviewText = reviewText;
         this.attractionReview = attractionReview;
         this.userReview = userReview;
+    }
+
+    public Review(Timestamp reviewDate, BigDecimal reviewScore, String reviewText, Attraction attractionReview) {
+        this.reviewDate = reviewDate;
+        this.reviewScore = reviewScore;
+        this.reviewText = reviewText;
+        this.attractionReview = attractionReview;
     }
 
     public Long getReviewId() {

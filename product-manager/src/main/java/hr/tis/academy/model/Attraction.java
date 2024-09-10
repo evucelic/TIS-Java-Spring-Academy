@@ -50,6 +50,8 @@ public class Attraction {
         this.attractionLocation = attractionLocation;
     }
 
+
+
     public Long getAttractionId() {
         return attractionId;
     }
