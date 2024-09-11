@@ -10,10 +10,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PictureMapper {
 
-    @Mapping(target = "pictureId", ignore = true) 
+    @Mapping(target = "pictureId", ignore = true)
     @Mapping(target = "attractionPicture", ignore = true)
     Picture toPictureEntity(PictureDto pictureDto);
 
-    @Mapping(target = "pictureURL", source = "pictureURL")
     PictureDto toPictureDto(Picture pictureEntity);
 }

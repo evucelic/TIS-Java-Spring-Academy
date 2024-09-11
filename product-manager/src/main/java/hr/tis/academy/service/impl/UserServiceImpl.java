@@ -7,7 +7,6 @@ import hr.tis.academy.mapper.UserMapper;
 import hr.tis.academy.model.Attraction;
 import hr.tis.academy.model.User;
 import hr.tis.academy.repository.AttractionRepository;
-import hr.tis.academy.repository.LocationRepository;
 import hr.tis.academy.repository.UserRepository;
 import hr.tis.academy.repository.exception.AttractionNotFoundException;
 import hr.tis.academy.repository.exception.FavoriteAlreadyExistsException;
@@ -17,17 +16,13 @@ import hr.tis.academy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private final LocationRepository locationRepository;
 
     private final UserRepository userRepository;
 
@@ -36,11 +31,10 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AttractionRepository attractionRepository, UserMapper userMapper, LocationRepository locationRepository) {
+    public UserServiceImpl(UserRepository userRepository, AttractionRepository attractionRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.attractionRepository = attractionRepository;
         this.userMapper = userMapper;
-        this.locationRepository = locationRepository;
     }
 
     @Override

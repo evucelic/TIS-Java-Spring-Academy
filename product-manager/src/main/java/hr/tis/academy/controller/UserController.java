@@ -2,12 +2,9 @@ package hr.tis.academy.controller;
 import hr.tis.academy.dto.FavoritesResponse;
 import hr.tis.academy.dto.ListFavoritesResponse;
 import hr.tis.academy.dto.UserDto;
-import hr.tis.academy.mapper.UserMapper;
 import hr.tis.academy.model.User;
 import hr.tis.academy.repository.UserRepository;
-import hr.tis.academy.repository.exception.UserNotFoundException;
 import hr.tis.academy.service.UserService;
-import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserMapper userMapper;
-
     private final UserService userService;
 
     private final UserRepository userRepository;
 
-    public UserController(UserService userService, UserMapper userMapper, UserRepository userRepository) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
-        this.userMapper = userMapper;
         this.userRepository = userRepository;
     }
 

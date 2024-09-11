@@ -91,4 +91,16 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(JournalNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleJournalNotFoundException(JournalNotFoundException journalNotFoundException){
+        var uuid = UUID.randomUUID().toString();
+        LOGGER.error("Journal not found exception uuid: '{}'", uuid, journalNotFoundException);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", journalNotFoundException.getMessage());
+        response.put("timestamp", new Timestamp(System.currentTimeMillis()));
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }
