@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "ATTRACTIONS", schema = "SIGHTSEEING")
+@Table(name = "JOURNALREVIEW", schema = "SIGHTSEEING")
 public class JournalAtrReview {
 
     @Id
