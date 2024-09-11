@@ -21,7 +21,7 @@ public class Location {
     public Location() {
     }
 
-    public Location(Long locationId, String locationName, List<Location> locations) {
+    public Location(Long locationId, String locationName, List<Attraction> attractions) {
         this.locationId = locationId;
         this.locationName = locationName;
         this.attractions = attractions;

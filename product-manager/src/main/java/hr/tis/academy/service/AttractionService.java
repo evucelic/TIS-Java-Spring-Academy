@@ -1,6 +1,7 @@
 package hr.tis.academy.service;
 
 import hr.tis.academy.dto.LocationAttractionsResponse;
+import hr.tis.academy.dto.PictureDto;
 import hr.tis.academy.dto.ReviewResponse;
 
 public interface AttractionService {

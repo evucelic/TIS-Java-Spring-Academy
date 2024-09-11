@@ -1,6 +1,7 @@
 package hr.tis.academy.controller;
 
 import hr.tis.academy.dto.LocationAttractionsResponse;
+import hr.tis.academy.dto.PictureDto;
 import hr.tis.academy.dto.ReviewResponse;
 import hr.tis.academy.service.AttractionService;
 import org.springframework.http.HttpStatus;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/attractions")
 public class AttractionController {
 
+    private final PictureRepository pictureRepository;
+
     private final AttractionService attractionService;
 
-    public AttractionController(AttractionService attractionService) {
+    public AttractionController(AttractionService attractionService, PictureRepository pictureRepository) {
         this.attractionService = attractionService;
+        this.pictureRepository = pictureRepository;
     }
 
     @GetMapping("/{locationName}")

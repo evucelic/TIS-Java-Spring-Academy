@@ -5,6 +5,7 @@ import hr.tis.academy.dto.LocationAttractionsResponse;
 import hr.tis.academy.dto.ReviewResponse;
 import hr.tis.academy.model.Attraction;
 import hr.tis.academy.model.Location;
+import hr.tis.academy.model.Picture;
 import hr.tis.academy.model.Review;
 import hr.tis.academy.repository.LocationRepository;
 import hr.tis.academy.repository.AttractionRepository;
@@ -21,7 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AttractionServiceImpl implements AttractionService{
+public class AttractionServiceImpl implements AttractionService {
+
+    private final PictureMapper pictureMapper;
+
+    private final LocationRepository locationRepository;
+
+    private final PictureRepository pictureRepository;
 
     private final ReviewRepository reviewRepository;
 
@@ -29,10 +36,13 @@ public class AttractionServiceImpl implements AttractionService{
 
     private final LocationRepository locationRepository;
 
-    public AttractionServiceImpl(LocationRepository locationRepository, AttractionRepository attractionRepository, ReviewRepository reviewRepository) {
+    public AttractionServiceImpl(LocationRepository locationRepository, AttractionRepository attractionRepository, ReviewRepository reviewRepository, PictureRepository pictureRepository, PictureMapper pictureMapper, ReviewResponseMapper reviewResponseMapper) {
         this.locationRepository = locationRepository;
         this.attractionRepository = attractionRepository;
         this.reviewRepository = reviewRepository;
+        this.pictureRepository = pictureRepository;
+        this.pictureMapper = pictureMapper;
+        this.reviewResponseMapper = reviewResponseMapper;
     }
 
     @Override

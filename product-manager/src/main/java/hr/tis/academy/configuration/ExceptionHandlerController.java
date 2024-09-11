@@ -79,4 +79,16 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(PictureNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handlePictureNotFoundException(PictureNotFoundException pictureNotFoundException){
+        var uuid = UUID.randomUUID().toString();
+        LOGGER.error("Picture not found exception uuid: '{}'", uuid, pictureNotFoundException);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", pictureNotFoundException.getMessage());
+        response.put("timestamp", new Timestamp(System.currentTimeMillis()));
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

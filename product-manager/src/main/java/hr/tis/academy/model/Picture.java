@@ -10,7 +10,7 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pictureId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String pictureURL;
 
     @ManyToOne
@@ -21,6 +21,11 @@ public class Picture {
 
     public Picture(Long pictureId, String pictureURL, Attraction attractionPicture) {
         this.pictureId = pictureId;
+        this.pictureURL = pictureURL;
+        this.attractionPicture = attractionPicture;
+    }
+
+    public Picture(String pictureURL, Attraction attractionPicture) {
         this.pictureURL = pictureURL;
         this.attractionPicture = attractionPicture;
     }
