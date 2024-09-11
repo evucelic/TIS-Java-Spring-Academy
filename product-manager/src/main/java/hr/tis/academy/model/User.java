@@ -32,15 +32,19 @@ public class User {
     @OneToMany(mappedBy = "userReview", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Review> userReviews;
 
+    @OneToMany(mappedBy = "journalEntry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Journal> journals;
+
     public User() {
     }
 
-    public User(Long userId, String name, String email, List<Attraction> attractionsUser, List<Review> userReviews) {
+    public User(Long userId, String name, String email, List<Attraction> attractionsUser, List<Review> userReviews, List<Journal> journals) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.attractionsUser = attractionsUser;
         this.userReviews = userReviews;
+        this.journals = journals;
     }
 
     public Long getUserId() {
@@ -81,5 +85,13 @@ public class User {
 
     public void setUserReviews(List<Review> userReviews) {
         this.userReviews = userReviews;
+    }
+
+    public List<Journal> getJournals() {
+        return journals;
+    }
+
+    public void setJournals(List<Journal> journals) {
+        this.journals = journals;
     }
 }

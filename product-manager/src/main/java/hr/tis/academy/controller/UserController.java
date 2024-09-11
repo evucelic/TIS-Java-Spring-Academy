@@ -1,10 +1,13 @@
 package hr.tis.academy.controller;
 import hr.tis.academy.dto.FavoritesResponse;
+import hr.tis.academy.dto.ListFavoritesResponse;
 import hr.tis.academy.dto.UserDto;
 import hr.tis.academy.mapper.UserMapper;
 import hr.tis.academy.model.User;
 import hr.tis.academy.repository.UserRepository;
+import hr.tis.academy.repository.exception.UserNotFoundException;
 import hr.tis.academy.service.UserService;
+import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +40,16 @@ public class UserController {
     {
         userService.addFavorite(favoritesResponse, user_id);
         return new ResponseEntity<>("Favorite added",HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{user_id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable Long user_id){
+        UserDto userDto = userService.getUser(user_id);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/{user_id}/favorites")
+    public ResponseEntity<ListFavoritesResponse> getFavorites(@PathVariable Long user_id){
+        return new ResponseEntity<>(userService.getFavorites(user_id), HttpStatus.OK);
     }
 }

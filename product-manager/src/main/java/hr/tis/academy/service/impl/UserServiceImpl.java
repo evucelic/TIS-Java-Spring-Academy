@@ -1,11 +1,13 @@
 package hr.tis.academy.service.impl;
 
 import hr.tis.academy.dto.FavoritesResponse;
+import hr.tis.academy.dto.ListFavoritesResponse;
 import hr.tis.academy.dto.UserDto;
 import hr.tis.academy.mapper.UserMapper;
 import hr.tis.academy.model.Attraction;
 import hr.tis.academy.model.User;
 import hr.tis.academy.repository.AttractionRepository;
+import hr.tis.academy.repository.LocationRepository;
 import hr.tis.academy.repository.UserRepository;
 import hr.tis.academy.repository.exception.AttractionNotFoundException;
 import hr.tis.academy.repository.exception.FavoriteAlreadyExistsException;
@@ -15,12 +17,17 @@ import hr.tis.academy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final LocationRepository locationRepository;
 
     private final UserRepository userRepository;
 
@@ -29,10 +36,11 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AttractionRepository attractionRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, AttractionRepository attractionRepository, UserMapper userMapper, LocationRepository locationRepository) {
         this.userRepository = userRepository;
         this.attractionRepository = attractionRepository;
         this.userMapper = userMapper;
+        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -67,6 +75,31 @@ public class UserServiceImpl implements UserService {
         // TLDR dvostrana veza
         userRepository.save(user);
         attractionRepository.save(attraction);
+    }
+
+    @Override
+    public UserDto getUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " does not exist"));
+        return userMapper.toUserDto(user);
+
+    }
+
+    @Override
+    public ListFavoritesResponse getFavorites(Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " does not exist"));
+        List<Attraction> attractionList = user.getAttractionsUser();
+
+        List<Attraction> userAttrList = attractionList.stream().filter(attraction -> attraction.getFavoritedByUsers().contains(user)).toList();
+
+        List<FavoritesResponse> newListFavoritesResponse = userAttrList.stream()
+                .map(attraction -> new FavoritesResponse(
+                        attraction.getAttractionLocation().getLocationName(),
+                        attraction.getAttractionName()))
+                .toList();
+
+        return new ListFavoritesResponse(newListFavoritesResponse);
     }
 
     private boolean validateEmail(String email) {
