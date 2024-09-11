@@ -5,9 +5,9 @@ This app was created for viewing and adding sights that would be nice to visit.
 
 ## Documentation
 
->![#1f75cb](https://placehold.co/10x10/1f75cb/1f75cb.png) `[Controllers and interfaces](https://drive.google.com/file/d/143qt8dXWoc7Hh1MJFMqZBcBXES3kP2el/view?usp=sharing)
+>![#1f75cb](https://placehold.co/10x10/1f75cb/1f75cb.png) [Controllers and interfaces](https://drive.google.com/file/d/143qt8dXWoc7Hh1MJFMqZBcBXES3kP2el/view?usp=sharing)
 > 
->![#1f75cb](https://placehold.co/10x10/1f75cb/1f75cb.png) `[Project's database diagram](https://dbdiagram.io/d/Database-66e017f4550cd927eabcd596)
+>![#1f75cb](https://placehold.co/10x10/1f75cb/1f75cb.png) [Project's database diagram](https://dbdiagram.io/d/Database-66e017f4550cd927eabcd596)
 
 ## Authors
 Members of team ***Risnjak***: 

@@ -1,8 +1,10 @@
 package hr.tis.academy.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attractionId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String attractionName;
 
     @Column
@@ -24,6 +26,9 @@ public class Attraction {
     @Enumerated(EnumType.STRING)
     @Column
     private AttractionType attractionType;
+
+    @Column(nullable = false, unique = true)
+    private String attractionURLName;
 
     @OneToMany(mappedBy = "attractionPicture", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Picture> pictures;
@@ -115,5 +120,13 @@ public class Attraction {
 
     public void setAttractionLocation(Location attractionLocation) {
         this.attractionLocation = attractionLocation;
+    }
+
+    public String getAttractionURLName() {
+        return attractionURLName;
+    }
+
+    public void setAttractionURLName(String attractionURLName) {
+        this.attractionURLName = attractionURLName;
     }
 }
