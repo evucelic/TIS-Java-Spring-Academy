@@ -1,6 +1,9 @@
 # Sightseeing App - Risnjak
 
 ## Description
+Projektni zadatak na kraju TIS-ove Java/Spring akademije.
+Backend u Spring-Boot-u za Sightseeing aplikaciju s lokalnom bazom podataka i konfiguriranim endpointovima koji vraćaju podatke korisniku putem DTO objekata.
+
 This app was created for viewing and adding sights that would be nice to visit.
 
 ## Documentation
